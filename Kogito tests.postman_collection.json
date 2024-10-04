@@ -1,0 +1,1479 @@
+{
+	"info": {
+		"_postman_id": "a1b65a74-69e9-457f-b5d4-481e8856c432",
+		"name": "Kogito tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28218587"
+	},
+	"item": [
+		{
+			"name": "Kogito Runtime",
+			"item": [
+				{
+					"name": "Processes",
+					"item": [
+						{
+							"name": "New Process Instance",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"process-instance-id\", JSON.parse(pm.response.text())[\"id\"]);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"expirationTime\" : \"PT30S\",\r\n    \"countryId\" : 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{kogito-service-host}}:{{kogito-service-port}}/{{kogito-service-process-id}}",
+									"host": [
+										"{{kogito-service-host}}"
+									],
+									"port": "{{kogito-service-port}}",
+									"path": [
+										"{{kogito-service-process-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Put Variable",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{kogito-service-host}}:{{kogito-service-port}}/{{kogito-service-process-id}}/{{process-instance-id}}",
+									"host": [
+										"{{kogito-service-host}}"
+									],
+									"port": "{{kogito-service-port}}",
+									"path": [
+										"{{kogito-service-process-id}}",
+										"{{process-instance-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update process variable",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"process-instance-id\", JSON.parse(pm.response.text())[\"id\"]);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"countryId\" : 87\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{kogito-service-host}}:{{kogito-service-port}}/{{kogito-service-process-id}}/{{process-instance-id}}",
+									"host": [
+										"{{kogito-service-host}}"
+									],
+									"port": "{{kogito-service-port}}",
+									"path": [
+										"{{kogito-service-process-id}}",
+										"{{process-instance-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Process Source",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{kogito-service-host}}:{{kogito-service-port}}/management/processes/{{kogito-service-process-id}}/source",
+									"host": [
+										"{{kogito-service-host}}"
+									],
+									"port": "{{kogito-service-port}}",
+									"path": [
+										"management",
+										"processes",
+										"{{kogito-service-process-id}}",
+										"source"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User Tasks",
+					"item": [
+						{
+							"name": "Complete User Task",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"validData\" : false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{kogito-service-host}}:{{kogito-service-port}}/{{kogito-service-process-id}}/{{process-instance-id}}/{{task-instance-name}}/{{task-instance-id}}?phase=complete&user={{user-id}}",
+									"host": [
+										"{{kogito-service-host}}"
+									],
+									"port": "{{kogito-service-port}}",
+									"path": [
+										"{{kogito-service-process-id}}",
+										"{{process-instance-id}}",
+										"{{task-instance-name}}",
+										"{{task-instance-id}}"
+									],
+									"query": [
+										{
+											"key": "phase",
+											"value": "complete"
+										},
+										{
+											"key": "user",
+											"value": "{{user-id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Save Task Outputs",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"validCountries\" : true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{kogito-service-host}}:{{kogito-service-port}}/{{kogito-service-process-id}}/{{process-instance-id}}/{{task-instance-name}}/{{task-instance-id}}?user=jdoe",
+									"host": [
+										"{{kogito-service-host}}"
+									],
+									"port": "{{kogito-service-port}}",
+									"path": [
+										"{{kogito-service-process-id}}",
+										"{{process-instance-id}}",
+										"{{task-instance-name}}",
+										"{{task-instance-id}}"
+									],
+									"query": [
+										{
+											"key": "user",
+											"value": "jdoe"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Process Management",
+					"item": [
+						{
+							"name": "Retry Process Instance",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{kogito-service-host}}:{{kogito-service-port}}/management/processes/{{kogito-service-process-id}}/instances/{{process-instance-id}}/retrigger",
+									"host": [
+										"{{kogito-service-host}}"
+									],
+									"port": "{{kogito-service-port}}",
+									"path": [
+										"management",
+										"processes",
+										"{{kogito-service-process-id}}",
+										"instances",
+										"{{process-instance-id}}",
+										"retrigger"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Skip Process Instance",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{kogito-service-host}}:{{kogito-service-port}}/management/processes/{{kogito-service-process-id}}/instances/{{process-instance-id}}/skip",
+									"host": [
+										"{{kogito-service-host}}"
+									],
+									"port": "{{kogito-service-port}}",
+									"path": [
+										"management",
+										"processes",
+										"{{kogito-service-process-id}}",
+										"instances",
+										"{{process-instance-id}}",
+										"skip"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Migrate Process Version",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"targetProcessId\": \"SampleProcess\",\r\n  \"targetProcessVersion\": \"2.0\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{kogito-service-host}}:{{kogito-service-port}}/management/processes/{{kogito-service-process-id}}/migrate",
+									"host": [
+										"{{kogito-service-host}}"
+									],
+									"port": "{{kogito-service-port}}",
+									"path": [
+										"management",
+										"processes",
+										"{{kogito-service-process-id}}",
+										"migrate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Migrate Process Instance Version",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"targetProcessId\": \"ServiceTaskProcess\",\r\n  \"targetProcessVersion\": \"2.0\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{kogito-service-host}}:{{kogito-service-port}}/management/processes/{{kogito-service-process-id}}/instances/{{process-instance-id}}/migrate",
+									"host": [
+										"{{kogito-service-host}}"
+									],
+									"port": "{{kogito-service-port}}",
+									"path": [
+										"management",
+										"processes",
+										"{{kogito-service-process-id}}",
+										"instances",
+										"{{process-instance-id}}",
+										"migrate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Process Instance Diagram",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{kogito-service-host}}:{{kogito-service-port}}/svg/processes/{{kogito-service-process-id}}/instances/{{process-instance-id}}",
+									"host": [
+										"{{kogito-service-host}}"
+									],
+									"port": "{{kogito-service-port}}",
+									"path": [
+										"svg",
+										"processes",
+										"{{kogito-service-process-id}}",
+										"instances",
+										"{{process-instance-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Process Definition Diagram",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{kogito-service-host}}:{{kogito-service-port}}/svg/processes/{{kogito-service-process-id}}",
+									"host": [
+										"{{kogito-service-host}}"
+									],
+									"port": "{{kogito-service-port}}",
+									"path": [
+										"svg",
+										"processes",
+										"{{kogito-service-process-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Nodes",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{kogito-service-host}}:{{kogito-service-port}}/management/processes/{{kogito-service-process-id}}/nodes",
+									"host": [
+										"{{kogito-service-host}}"
+									],
+									"port": "{{kogito-service-port}}",
+									"path": [
+										"management",
+										"processes",
+										"{{kogito-service-process-id}}",
+										"nodes"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "List loggers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{kogito-service-host}}:{{kogito-service-port}}/q/logging-manager",
+							"host": [
+								"{{kogito-service-host}}"
+							],
+							"port": "{{kogito-service-port}}",
+							"path": [
+								"q",
+								"logging-manager"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get logger",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{kogito-service-host}}:{{kogito-service-port}}/q/logging-manager?loggerName=org.kie.kogito",
+							"host": [
+								"{{kogito-service-host}}"
+							],
+							"port": "{{kogito-service-port}}",
+							"path": [
+								"q",
+								"logging-manager"
+							],
+							"query": [
+								{
+									"key": "loggerName",
+									"value": "org.kie.kogito"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change logger",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "loggerLevel",
+									"value": "DEBUG",
+									"type": "text"
+								},
+								{
+									"key": "loggerName",
+									"value": "org.kie.kogito",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{kogito-service-host}}:{{kogito-service-port}}/q/logging-manager",
+							"host": [
+								"{{kogito-service-host}}"
+							],
+							"port": "{{kogito-service-port}}",
+							"path": [
+								"q",
+								"logging-manager"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Kogito Data-Index",
+			"item": [
+				{
+					"name": "Process Instances",
+					"item": [
+						{
+							"name": "List all Process Instances",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var tempQuery = encodeURIComponent(pm.collectionVariables.get(\"query-get-all-process-instances\"));\r",
+											"pm.request.url.query.insert({key:\"query\",value: tempQuery});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{kogito-data-index-host}}:{{kogito-data-index-port}}/graphql",
+									"host": [
+										"{{kogito-data-index-host}}"
+									],
+									"port": "{{kogito-data-index-port}}",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Process Instance by Instance Id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var tempQuery = pm.collectionVariables.get(\"query-get-process-instance-by-instance-id\");\r",
+											"tempQuery = encodeURIComponent(tempQuery.replace(\"process-instance-id\",pm.collectionVariables.get(\"process-instance-id\")));\r",
+											"console.log(tempQuery);\r",
+											"pm.request.url.query.insert({key:\"query\",value: tempQuery});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{kogito-data-index-host}}:{{kogito-data-index-port}}/graphql",
+									"host": [
+										"{{kogito-data-index-host}}"
+									],
+									"port": "{{kogito-data-index-port}}",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Process Instances by Process Id",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var tempQuery = pm.collectionVariables.get(\"query-get-process-instances-by-process-id-and-date\");\r",
+											"console.log(tempQuery);\r",
+											"tempQuery = encodeURIComponent(tempQuery.replace(\"kogito-service-process-id\",pm.collectionVariables.get(\"kogito-service-process-id\")));\r",
+											"console.log(tempQuery);\r",
+											"pm.request.url.query.insert({key:\"query\",value: tempQuery});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{kogito-data-index-host}}:{{kogito-data-index-port}}/graphql",
+									"host": [
+										"{{kogito-data-index-host}}"
+									],
+									"port": "{{kogito-data-index-port}}",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Jobs",
+					"item": []
+				},
+				{
+					"name": "User Tasks",
+					"item": [
+						{
+							"name": "List User Tasks by Process Id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//pm.collectionVariables.set(\"task-instance-id\", JSON.parse(pm.response.text())[\"id\"]);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var tempQuery = pm.collectionVariables.get(\"query-get-user-tasks-by-process-id\");\r",
+											"tempQuery = encodeURIComponent(tempQuery.replace(\"kogito-service-process-id\",pm.collectionVariables.get(\"kogito-service-process-id\")));\r",
+											"console.log(tempQuery);\r",
+											"pm.request.url.query.insert({key:\"query\",value: tempQuery});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{kogito-data-index-host}}:{{kogito-data-index-port}}/graphql",
+									"host": [
+										"{{kogito-data-index-host}}"
+									],
+									"port": "{{kogito-data-index-port}}",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List User Tasks by Process Instance Id",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var tempQuery = pm.collectionVariables.get(\"query-get-user-tasks-by-process-instance-id\");\r",
+											"tempQuery = encodeURIComponent(tempQuery.replace(\"process-instance-id\",pm.collectionVariables.get(\"process-instance-id\")));\r",
+											"console.log(tempQuery);\r",
+											"pm.request.url.query.insert({key:\"query\",value: tempQuery});\r",
+											"\r",
+											"/*\r",
+											"query=%7BUserTaskInstances(where%3A%7BprocessInstanceId%3A%7Bequal%3A%22d00e3fb7-d072-44fb-b3d4-4b2611d0b687%22%7D%7D%2CorderBy%3A%7BlastUpdate%3ADESC%7D)%7Bid%2Cname%2Cstate%2CactualOwner%2Cdescription%2ClastUpdate%2Cpriority%2CprocessId%2CprocessInstanceId%2Cendpoint%2Cinputs%2Coutputs%7D%7D\r",
+											"*/"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var dataNode = JSON.parse(pm.response.text())[\"data\"];\r",
+											"var userTaskInstancesNode = dataNode[\"UserTaskInstances\"];\r",
+											"var firstUserTaskId = userTaskInstancesNode[0][\"id\"];\r",
+											"var firstUserTaskName = userTaskInstancesNode[0][\"name\"];\r",
+											"\r",
+											"pm.collectionVariables.set(\"task-instance-id\", firstUserTaskId);\r",
+											"pm.collectionVariables.set(\"task-instance-name\", firstUserTaskName);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{kogito-data-index-host}}:{{kogito-data-index-port}}/graphql",
+									"host": [
+										"{{kogito-data-index-host}}"
+									],
+									"port": "{{kogito-data-index-port}}",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Active User Tasks by Process Instance Id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var dataNode = JSON.parse(pm.response.text())[\"data\"];\r",
+											"var userTaskInstancesNode = dataNode[\"UserTaskInstances\"];\r",
+											"var firstUserTask = userTaskInstancesNode[0][\"id\"];\r",
+											"\r",
+											"console.log(\"FUT = \" + firstUserTask);\r",
+											"\r",
+											"pm.collectionVariables.set(\"task-instance-id\", firstUserTask);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"var tempQuery = pm.collectionVariables.get(\"query-get-active-user-tasks-by-process-instance-id\");\r",
+											"tempQuery = encodeURIComponent(tempQuery.replace(\"process-instance-id\",pm.collectionVariables.get(\"process-instance-id\")));\r",
+											"console.log(tempQuery);\r",
+											"pm.request.url.query.insert({key:\"query\",value: tempQuery});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{kogito-data-index-host}}:{{kogito-data-index-port}}/graphql",
+									"host": [
+										"{{kogito-data-index-host}}"
+									],
+									"port": "{{kogito-data-index-port}}",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Describe entity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var tempQuery = encodeURIComponent(pm.collectionVariables.get(\"query-describe-entity\"));\r",
+									"tempQuery = encodeURIComponent(tempQuery.replace(\"entity\",\"UserTaskInstances\"));\r",
+									"console.log(tempQuery);\r",
+									"pm.request.url.query.insert({key:\"query\",value: tempQuery});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{kogito-data-index-host}}:{{kogito-data-index-port}}/graphql",
+							"host": [
+								"{{kogito-data-index-host}}"
+							],
+							"port": "{{kogito-data-index-port}}",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Kogito Data-Audit",
+			"item": [
+				{
+					"name": "Get Data Audit",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{kogito-service-host}}:{{kogito-service-port}}/data-audit/r",
+							"host": [
+								"{{kogito-service-host}}"
+							],
+							"port": "{{kogito-service-port}}",
+							"path": [
+								"data-audit",
+								"r"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Data Audit (Q)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"query\": \"{GetAllProcessInstancesState {eventId, processInstanceId, eventType, eventDate}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{kogito-service-host}}:{{kogito-service-port}}/data-audit/q",
+							"host": [
+								"{{kogito-service-host}}"
+							],
+							"port": "{{kogito-service-port}}",
+							"path": [
+								"data-audit",
+								"q"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Data Audit (R)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"identifier\" : \"tests\",\r\n    \"graphQLDefinition\" : \"type EventTest { jobId : String, processInstanceId: String} type Query { tests (pagination: Pagination) : [ EventTest ] } \",\r\n    \"query\" : \"SELECT o.job_id, o.process_instance_id FROM job_execution_log o\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{kogito-service-host}}:{{kogito-service-port}}/data-audit/r",
+							"host": [
+								"{{kogito-service-host}}"
+							],
+							"port": "{{kogito-service-port}}",
+							"path": [
+								"data-audit",
+								"r"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "kogito-service-host",
+			"value": "http://localhost",
+			"type": "string"
+		},
+		{
+			"key": "kogito-service-port",
+			"value": "8080",
+			"type": "string"
+		},
+		{
+			"key": "kogito-service-process-id",
+			"value": "UserTaskProcess",
+			"type": "string"
+		},
+		{
+			"key": "kogito-data-index-host",
+			"value": "http://localhost",
+			"type": "string"
+		},
+		{
+			"key": "kogito-data-index-port",
+			"value": "8080",
+			"type": "string"
+		},
+		{
+			"key": "process-instance-id",
+			"value": "XXXXX",
+			"type": "string"
+		},
+		{
+			"key": "task-instance-id",
+			"value": "8f389000-e928-43d2-ac1d-229adab6db1e",
+			"type": "string"
+		},
+		{
+			"key": "task-instance-name",
+			"value": "firstUserTask",
+			"type": "string"
+		},
+		{
+			"key": "user-id",
+			"value": "jdoe",
+			"type": "string"
+		},
+		{
+			"key": "query-get-all-process-instances",
+			"value": "{ProcessInstances{id,processId,processName,state,parentProcessInstanceId,rootProcessId,rootProcessInstanceId,nodes{id,name,type}}}",
+			"type": "string"
+		},
+		{
+			"key": "query-get-process-instance-by-process-id",
+			"value": "{ProcessInstances(where:{processId:{equal:\"kogito-service-process-id\"}},orderBy:{start:ASC}){id,processId,processName,start,end,state}}",
+			"type": "string"
+		},
+		{
+			"key": "query-get-process-instance-by-instance-id",
+			"value": "{ProcessInstances(where:{id:{equal:\"process-instance-id\"}},orderBy:{start:ASC}){id,processId,processName,start,end,state}}",
+			"type": "string"
+		},
+		{
+			"key": "query-get-user-tasks-by-process-id",
+			"value": "{UserTaskInstances(where:{processId:{equal:\"kogito-service-process-id\"}}){id,name,state,actualOwner,potentialUsers,description,priority,processId,processInstanceId,inputs,outputs}}",
+			"type": "string"
+		},
+		{
+			"key": "query-get-user-tasks-by-process-instance-id",
+			"value": "{UserTaskInstances(where:{processInstanceId:{equal:\"process-instance-id\"}},orderBy:{lastUpdate:DESC}){id,name,state,actualOwner,potentialUsers,description,lastUpdate,priority,processId,processInstanceId,endpoint,inputs,outputs}}",
+			"type": "string"
+		},
+		{
+			"key": "query-get-active-user-tasks-by-process-instance-id",
+			"value": "{UserTaskInstances(where:{processInstanceId:{equal:\"process-instance-id\"},{state:{equal:\"ACTIVE\"}}}){id,name,state,actualOwner,potentialUsers,description,priority,processId,processInstanceId,inputs,outputs}}",
+			"type": "string"
+		},
+		{
+			"key": "query-describe-entity",
+			"value": "{__type(where: {name:\"entity\"}){namefields{nametype{namekind}}}}",
+			"type": "string"
+		},
+		{
+			"key": "query-describe-schema",
+			"value": "{schema{types{name}}}",
+			"type": "string"
+		},
+		{
+			"key": "query-get-process-instances-by-process-id-and-date",
+			"value": "{ProcessInstances(where:{and:{processId:{equal:\"kogito-service-process-id\"},start :{greaterThan: \"2024-10-02T17:00\"},state:{equal:ACTIVE}}},orderBy:{start:ASC}){id,processId,processName,start,end,state}}",
+			"type": "string"
+		}
+	]
+}
